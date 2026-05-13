@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Certstream Prototype
+    orgId: 1
+    folder: Certstream
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards
