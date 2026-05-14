@@ -17,7 +17,7 @@ Prometheus is for numeric time-series metrics. The raw CT events are stored sepa
 ## 1. Start certstream-server-go
 
 ```bash
-cd /Users/yihanliu/Desktop/seminar/certstream-server-go
+cd /path/to/certstream-server-go
 
 docker run -d \
   --name certstream-server-go \
@@ -36,7 +36,7 @@ curl http://127.0.0.1:8080/full-stream/example.json
 ## 2. Start the Collector
 
 ```bash
-cd /Users/yihanliu/Desktop/seminar/prototype
+cd /path/to/prototype
 node collector.js
 ```
 
@@ -98,7 +98,7 @@ MAX_MESSAGES=1000 node collector.js
 Keep the collector running, then in another terminal:
 
 ```bash
-cd /Users/yihanliu/Desktop/seminar/prototype
+cd /path/to/prototype
 docker compose -f docker-compose.monitoring.yml up -d
 ```
 
