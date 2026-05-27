@@ -1,3 +1,14 @@
 data/*.jsonl
+data/*.jsonl.gz
+data/**/*.jsonl.gz
+data/manifest.csv
+data/raw/
 memory.md
 plan.md
+__pycache__/
+*.pyc
+figures/test/
+figures/pytest/
+figures/pdtest/
+.venv/
+.cache/

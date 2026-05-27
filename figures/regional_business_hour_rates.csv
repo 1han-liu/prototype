@@ -1,0 +1,4 @@
+region_bucket,timezone,local_window,unique_fqdn_total,business_minutes,off_hours_minutes,business_unique_fqdn_minute_sum,off_hours_unique_fqdn_minute_sum,business_rate_unique_fqdns_per_minute,off_hours_rate_unique_fqdns_per_minute
+Europe ccTLD,Europe/Berlin,"25/05, 20:00-25/05, 20:59",302647,0,60,0,507385,n/a,8456.417
+North America ccTLD,America/New_York,"25/05, 14:00-25/05, 14:59",20516,60,0,38163,0,636.050,n/a
+North America ccTLD,America/Los_Angeles,"25/05, 11:00-25/05, 11:59",20516,60,0,38163,0,636.050,n/a

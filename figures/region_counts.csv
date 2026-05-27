@@ -1,0 +1,5 @@
+region_bucket,unique_fqdn_count,domain_occurrences
+Global/unknown gTLD,1153324,3756568
+Europe ccTLD,302647,763914
+Other/unknown,297195,1027751
+North America ccTLD,20516,62663

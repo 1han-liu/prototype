@@ -1,0 +1,46 @@
+source,source_type,source_url,event_count,share_percent,value_text
+Sectigo 'Tiger2026h2',rfc6962,https://tiger2026h2.ct.sectigo.com,596788,19.27,"596,788 (19.270%)"
+Sectigo 'Elephant2026h2',rfc6962,https://elephant2026h2.ct.sectigo.com,447986,14.466,"447,986 (14.466%)"
+Cloudflare 'Nimbus2026',rfc6962,https://ct.cloudflare.com/logs/nimbus2026,446141,14.406,"446,141 (14.406%)"
+Google 'Xenon2026h2' log,rfc6962,https://ct.googleapis.com/logs/eu1/xenon2026h2,430665,13.906,"430,665 (13.906%)"
+Google 'Argon2026h2' log,rfc6962,https://ct.googleapis.com/logs/us1/argon2026h2,214880,6.939,"214,880 (6.939%)"
+IPng Networks 'Halloumi2026h2a',tiled,https://halloumi2026h2a.mon.ct.ipng.ch,179118,5.784,"179,118 (5.784%)"
+IPng Networks 'Gouda2026h2',tiled,https://gouda2026h2.mon.ct.ipng.ch,177089,5.718,"177,089 (5.718%)"
+Let's Encrypt 'Sycamore2026h2',tiled,https://mon.sycamore.ct.letsencrypt.org/2026h2,69243,2.236,"69,243 (2.236%)"
+TrustAsia 'log2026b',rfc6962,https://ct2026-b.trustasia.com/log2026b,64785,2.092,"64,785 (2.092%)"
+Let's Encrypt 'Willow2026h2',tiled,https://mon.willow.ct.letsencrypt.org/2026h2,64308,2.077,"64,308 (2.077%)"
+TrustAsia 'log2026a',rfc6962,https://ct2026-a.trustasia.com/log2026a,63904,2.063,"63,904 (2.063%)"
+DigiCert 'Sphinx2026h2',rfc6962,https://sphinx.ct.digicert.com/2026h2,55040,1.777,"55,040 (1.777%)"
+DigiCert 'Wyvern2026h2',rfc6962,https://wyvern.ct.digicert.com/2026h2,53050,1.713,"53,050 (1.713%)"
+Geomys 'Tuscolo2026h2',tiled,https://tuscolo2026h2.skylight.geomys.org,39265,1.268,"39,265 (1.268%)"
+Google 'Argon2026h1' log,rfc6962,https://ct.googleapis.com/logs/us1/argon2026h1,38346,1.238,"38,346 (1.238%)"
+Sectigo 'Elephant2026h1',rfc6962,https://elephant2026h1.ct.sectigo.com,21662,0.699,"21,662 (0.699%)"
+Sectigo 'Tiger2026h1',rfc6962,https://tiger2026h1.ct.sectigo.com,21375,0.69,"21,375 (0.690%)"
+DigiCert 'Sphinx2026h1',rfc6962,https://sphinx.ct.digicert.com/2026h1,20724,0.669,"20,724 (0.669%)"
+DigiCert 'Wyvern2026h1',rfc6962,https://wyvern.ct.digicert.com/2026h1,20531,0.663,"20,531 (0.663%)"
+Google 'Xenon2026h1' log,rfc6962,https://ct.googleapis.com/logs/eu1/xenon2026h1,20433,0.66,"20,433 (0.660%)"
+Google 'Argon2027h1',rfc6962,https://ct.googleapis.com/logs/us1/argon2027h1,18072,0.584,"18,072 (0.584%)"
+IPng Networks 'Halloumi2026h1',tiled,https://halloumi2026h1.mon.ct.ipng.ch,9582,0.309,"9,582 (0.309%)"
+IPng Networks 'Gouda2026h1',tiled,https://gouda2026h1.mon.ct.ipng.ch,8313,0.268,"8,313 (0.268%)"
+Let's Encrypt 'Sycamore2026h1',tiled,https://mon.sycamore.ct.letsencrypt.org/2026h1,7605,0.246,"7,605 (0.246%)"
+Let's Encrypt 'Willow2026h1',tiled,https://mon.willow.ct.letsencrypt.org/2026h1,6727,0.217,"6,727 (0.217%)"
+Geomys 'Tuscolo2026h1',tiled,https://tuscolo2026h1.skylight.geomys.org,919,0.03,919 (0.030%)
+Cloudflare 'Nimbus2027',rfc6962,https://ct.cloudflare.com/logs/nimbus2027,112,0.004,112 (0.004%)
+IPng Networks 'Halloumi2027h1',tiled,https://halloumi2027h1.mon.ct.ipng.ch,35,0.001,35 (0.001%)
+TrustAsia 'HETU2027',rfc6962,https://hetu2027.trustasia.com/hetu2027,31,0.001,31 (0.001%)
+DigiCert 'Wyvern2027h1',rfc6962,https://wyvern.ct.digicert.com/2027h1,29,0.001,29 (0.001%)
+DigiCert 'sphinx2027h1',rfc6962,https://sphinx.ct.digicert.com/2027h1,28,0.001,28 (0.001%)
+TrustAsia Luoshu2027,tiled,https://luoshu2027.trustasia.com/luoshu2027,24,0.001,24 (0.001%)
+Google 'Xenon2027h1',rfc6962,https://ct.googleapis.com/logs/eu1/xenon2027h1,23,0.001,23 (0.001%)
+Sectigo 'Elephant2027h1',rfc6962,https://elephant2027h1.ct.sectigo.com,20,0.001,20 (0.001%)
+Sectigo 'Tiger2027h1',rfc6962,https://tiger2027h1.ct.sectigo.com,18,0.001,18 (0.001%)
+IPng Networks 'Gouda2027h1',tiled,https://gouda2027h1.mon.ct.ipng.ch,9,0.0,9 (0.000%)
+DigiCert 'Wyvern2027h2',rfc6962,https://wyvern.ct.digicert.com/2027h2,5,0.0,5 (0.000%)
+DigiCert 'sphinx2027h2',rfc6962,https://sphinx.ct.digicert.com/2027h2,5,0.0,5 (0.000%)
+IPng Networks 'Gouda2027h2',tiled,https://gouda2027h2.mon.ct.ipng.ch,3,0.0,3 (0.000%)
+IPng Networks 'Halloumi2027h2',tiled,https://halloumi2027h2.mon.ct.ipng.ch,3,0.0,3 (0.000%)
+Sectigo 'Elephant2027h2',rfc6962,https://elephant2027h2.ct.sectigo.com,3,0.0,3 (0.000%)
+Sectigo 'Tiger2027h2',rfc6962,https://tiger2027h2.ct.sectigo.com,3,0.0,3 (0.000%)
+Geomys 'Tuscolo2027h2',tiled,https://tuscolo2027h2.skylight.geomys.org,2,0.0,2 (0.000%)
+Let's Encrypt 'Sycamore2027h1',tiled,https://mon.sycamore.ct.letsencrypt.org/2027h1,1,0.0,1 (0.000%)
+Let's Encrypt 'Sycamore2027h2',tiled,https://mon.sycamore.ct.letsencrypt.org/2027h2,1,0.0,1 (0.000%)

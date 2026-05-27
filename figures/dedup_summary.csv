@@ -1,0 +1,7 @@
+metric,value,meaning
+raw_certificate_events,3096906,Raw certificate_update messages observed in the stream.
+unique_certificates,1842148,"Deduplicated certificates using sha256, then issuer + serial fallback."
+duplicate_certificate_events,1254758,Raw certificate events minus unique certificates.
+domain_occurrences,5610896,All SAN/domain names counted as they appear in events.
+unique_fqdns,1773682,Deduplicated normalized fully qualified domain names.
+duplicate_domain_occurrences,3837214,Domain occurrences minus unique FQDNs.
