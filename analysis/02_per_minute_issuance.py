@@ -30,14 +30,18 @@ def main() -> None:
 
     events, domains = load_frames(input_file, include_domains=True, time_field=time_field)
     domains = domains if domains is not None else pd.DataFrame()
+    certificate_events = events[events["event_kind"] == "certificate"]
     minutes = complete_minute_index(events["minute_utc"])
 
     per_minute = pd.DataFrame({"minute_utc": minutes})
-    per_minute["certificate_events"] = (
+    per_minute["stream_messages"] = (
         events.groupby("minute_utc").size().reindex(minutes, fill_value=0).astype(int).to_numpy()
     )
+    per_minute["certificate_events"] = (
+        certificate_events.groupby("minute_utc").size().reindex(minutes, fill_value=0).astype(int).to_numpy()
+    )
     per_minute["unique_certificates"] = (
-        events.groupby("minute_utc")["cert_key"].nunique().reindex(minutes, fill_value=0).astype(int).to_numpy()
+        certificate_events.groupby("minute_utc")["cert_key"].nunique().reindex(minutes, fill_value=0).astype(int).to_numpy()
     )
     per_minute["domain_occurrences"] = (
         domains.groupby("minute_utc").size().reindex(minutes, fill_value=0).astype(int).to_numpy()
@@ -45,13 +49,16 @@ def main() -> None:
     per_minute["unique_fqdns"] = (
         domains.groupby("minute_utc")["domain"].nunique().reindex(minutes, fill_value=0).astype(int).to_numpy()
     )
-    per_minute = trim_sparse_edge_rows(per_minute, "certificate_events").reset_index(drop=True)
+    has_certificate_events = bool(per_minute["certificate_events"].sum())
+    trim_col = "certificate_events" if has_certificate_events else "unique_fqdns"
+    per_minute = trim_sparse_edge_rows(per_minute, trim_col).reset_index(drop=True)
     per_minute = add_local_minute_columns(per_minute, display_time_zone)
 
     output_columns = [
         "minute_utc",
         "minute_local",
         "display_timezone",
+        "stream_messages",
         "certificate_events",
         "unique_certificates",
         "domain_occurrences",
@@ -63,10 +70,12 @@ def main() -> None:
     write_csv(per_minute[output_columns], csv_file)
 
     gap_rows = []
-    for item in zero_ranges(per_minute, "certificate_events"):
+    gap_count_col = "certificate_events" if has_certificate_events else "stream_messages"
+    for item in zero_ranges(per_minute, gap_count_col):
         start = item["start"]
         end = item["end"]
         gap_rows.append({
+            "gap_metric": gap_count_col,
             "start_minute_utc": start["minute_utc"],
             "end_minute_utc": end["minute_utc"],
             "start_minute_local": start["minute_local"],
@@ -81,17 +90,27 @@ def main() -> None:
         if not per_minute.empty
         else f"n/a {display_time_zone}"
     )
-    save_line_chart(
-        per_minute,
-        x_col="minute_utc",
-        series=[
+    if has_certificate_events:
+        series = [
             ("unique certificates", "unique_certificates", "#2f6f73"),
             ("unique FQDNs", "unique_fqdns", "#b8572a"),
             ("domain occurrences", "domain_occurrences", "#6a5acd"),
             ("raw certificate events", "certificate_events", "#3267a8"),
-        ],
-        title="Per-Minute Certificate and Domain Rate",
-        subtitle=f"{local_window} | pandas resample/groupby | time field: {time_field} | {format_number(len(events))} parsed events",
+        ]
+        title = "Per-Minute Certificate and Domain Rate"
+    else:
+        series = [
+            ("unique FQDNs", "unique_fqdns", "#b8572a"),
+            ("domain occurrences", "domain_occurrences", "#6a5acd"),
+            ("domain-list messages", "stream_messages", "#3267a8"),
+        ]
+        title = "Per-Minute Domain Rate"
+    save_line_chart(
+        per_minute,
+        x_col="minute_utc",
+        series=series,
+        title=title,
+        subtitle=f"{local_window} | pandas resample/groupby | time field: {time_field} | {format_number(len(events))} parsed stream messages",
         output_path=svg_file,
         y_label="per-minute count",
         display_time_zone=display_time_zone,

@@ -139,6 +139,10 @@ def is_certificate_event(event: dict[str, Any]) -> bool:
     return event.get("message_type") == "certificate_update" and get_leaf(event) is not None
 
 
+def is_domain_list_event(event: dict[str, Any]) -> bool:
+    return isinstance(event.get("data"), list)
+
+
 def issuer_label(issuer: dict[str, Any] | None) -> str:
     if not isinstance(issuer, dict):
         return "unknown"
@@ -259,24 +263,39 @@ def event_time(event: dict[str, Any], preferred: str | None = None) -> datetime 
     return None
 
 
-def load_frames(input_file: Path, *, include_domains: bool = False, time_field: str | None = None) -> tuple[pd.DataFrame, pd.DataFrame | None]:
+def load_frames(
+    input_file: Path,
+    *,
+    include_domains: bool = False,
+    time_field: str | None = None,
+    include_domain_only_events: bool | None = None,
+) -> tuple[pd.DataFrame, pd.DataFrame | None]:
     event_rows: list[dict[str, Any]] = []
     domain_rows: list[dict[str, Any]] = []
     time_field = time_field or os.environ.get("TIME_FIELD", "received_at")
+    if include_domain_only_events is None:
+        include_domain_only_events = include_domains
 
     for event in iter_events(input_file):
-        if not is_certificate_event(event):
+        domains_for_event = event_domains(event)
+        certificate_event = is_certificate_event(event)
+        domain_only_event = include_domain_only_events and is_domain_list_event(event) and bool(domains_for_event)
+        if not certificate_event and not domain_only_event:
             continue
         leaf = get_leaf(event) or {}
         timestamp = event_time(event, time_field)
         if not timestamp:
             continue
         source_name, source_url, source_type = source_info(event)
-        key = cert_key(event)
+        key = cert_key(event) if certificate_event else None
         issuer = issuer_label(leaf.get("issuer"))
         event_rows.append({
             "timestamp": timestamp,
             "minute_utc": pd.Timestamp(timestamp).floor("min"),
+            "event_kind": "certificate" if certificate_event else "domains-only",
+            "stream_mode": safe_label(event.get("stream_mode"), "domains-only" if domain_only_event else "unknown"),
+            "message_type": safe_label(event.get("message_type")),
+            "domain_count": len(domains_for_event),
             "cert_key": key,
             "issuer": issuer,
             "source": source_name,
@@ -285,7 +304,7 @@ def load_frames(input_file: Path, *, include_domains: bool = False, time_field: 
         })
 
         if include_domains:
-            for domain in event_domains(event):
+            for domain in domains_for_event:
                 tld = tld_of(domain)
                 domain_rows.append({
                     "timestamp": timestamp,
@@ -296,14 +315,28 @@ def load_frames(input_file: Path, *, include_domains: bool = False, time_field: 
                     "region_bucket": region_for_tld(tld),
                 })
 
-    events = pd.DataFrame(event_rows)
+    event_columns = [
+        "timestamp",
+        "minute_utc",
+        "event_kind",
+        "stream_mode",
+        "message_type",
+        "domain_count",
+        "cert_key",
+        "issuer",
+        "source",
+        "source_url",
+        "source_type",
+    ]
+    events = pd.DataFrame(event_rows, columns=event_columns)
     if not events.empty:
         events["timestamp"] = pd.to_datetime(events["timestamp"], utc=True)
         events["minute_utc"] = pd.to_datetime(events["minute_utc"], utc=True)
 
     domains = None
     if include_domains:
-        domains = pd.DataFrame(domain_rows)
+        domain_columns = ["timestamp", "minute_utc", "cert_key", "domain", "tld", "region_bucket"]
+        domains = pd.DataFrame(domain_rows, columns=domain_columns)
         if not domains.empty:
             domains["timestamp"] = pd.to_datetime(domains["timestamp"], utc=True)
             domains["minute_utc"] = pd.to_datetime(domains["minute_utc"], utc=True)

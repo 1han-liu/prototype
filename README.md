@@ -96,33 +96,35 @@ MAX_MESSAGES=1000 node collector.js
 ### Sampled Research Collection
 
 For the weekday/weekend and business-hour analysis, use the sampled collector instead of appending everything to `data/lite.jsonl`.
+The sampled collector defaults to `domains-only`, which is enough for FQDN/TLD rate analysis and keeps the raw files much smaller than `lite`.
 
-Run one 15-minute `lite` sample immediately:
+Run one 15-minute domain-only sample immediately:
 
 ```bash
-CERTSTREAM_MODE=lite SAMPLE_MINUTES=15 SAMPLE_WINDOWS=1 node collect_sample_windows.js
+SAMPLE_MINUTES=15 SAMPLE_WINDOWS=1 node collect_sample_windows.js
 ```
 
 Run 24 hourly samples, starting at the next UTC hour:
 
 ```bash
-CERTSTREAM_MODE=lite SAMPLE_MINUTES=15 SAMPLE_WINDOWS=24 SAMPLE_START=next-hour node collect_sample_windows.js
+SAMPLE_MINUTES=15 SAMPLE_WINDOWS=24 SAMPLE_START=next-hour node collect_sample_windows.js
 ```
 
 For a short test:
 
 ```bash
-CERTSTREAM_MODE=lite SAMPLE_SECONDS=30 SAMPLE_WINDOWS=1 node collect_sample_windows.js
+SAMPLE_SECONDS=30 SAMPLE_WINDOWS=1 node collect_sample_windows.js
 ```
 
 The sampled collector writes compressed raw JSONL files and a manifest:
 
 ```text
-data/raw/YYYY-MM-DD/YYYY-MM-DDTHH-mmZ_15m_lite.jsonl.gz
+data/raw/YYYY-MM-DD/YYYY-MM-DDTHH-mmZ_15m_domains-only.jsonl.gz
 data/manifest.csv
 ```
 
 Use UTC in file names. The Python analysis scripts convert timestamps to `Europe/Berlin`, `America/New_York`, or `America/Los_Angeles` for local-time and business-hour analysis.
+If you need CT log source, issuer, or certificate deduplication analysis, run the same commands with `CERTSTREAM_MODE=lite`.
 
 ## 3. Start Prometheus and Grafana
 
@@ -228,9 +230,10 @@ Use `INPUT_FILE` to analyze a different sample and `FIGURES_DIR` to change the o
 
 ```bash
 INPUT_FILE=data/raw/2026-05-25/2026-05-25T18-00Z_60m_lite.jsonl.gz .venv/bin/python analysis/01_ct_log_sources.py
+INPUT_FILE=data/raw/YYYY-MM-DD/YYYY-MM-DDTHH-mmZ_15m_domains-only.jsonl.gz .venv/bin/python analysis/04_tld_region_business_hours.py
 ```
 
-Use `TIME_FIELD` for time-series scripts. The default is `received_at`, which describes when the prototype observed the event. Other supported values are `not_before`, `seen`, and `source_timestamp`. Time-series charts default to `DISPLAY_TIME_ZONE=Europe/Berlin` for local display, while CSV files keep UTC as well.
+Use `TIME_FIELD` for time-series scripts. The default is `received_at`, which describes when the prototype observed the event. Other supported values are `not_before`, `seen`, and `source_timestamp` for `lite`/`full` data. Domain-only data only has `received_at`, so keep the default for FQDN rate analysis. Time-series charts default to `DISPLAY_TIME_ZONE=Europe/Berlin` for local display, while CSV files keep UTC as well.
 
 ```bash
 TIME_FIELD=received_at DISPLAY_TIME_ZONE=Europe/Berlin .venv/bin/python analysis/02_per_minute_issuance.py

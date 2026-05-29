@@ -48,10 +48,10 @@ const manifestColumns = [
 
 function usage() {
   console.log(`Usage:
-  CERTSTREAM_MODE=lite SAMPLE_MINUTES=15 SAMPLE_WINDOWS=24 SAMPLE_START=next-hour node collect_sample_windows.js
+  CERTSTREAM_MODE=domains-only SAMPLE_MINUTES=15 SAMPLE_WINDOWS=24 SAMPLE_START=next-hour node collect_sample_windows.js
 
 Environment:
-  CERTSTREAM_MODE              domains-only, lite, or full. Default: lite
+  CERTSTREAM_MODE              domains-only, lite, or full. Default: domains-only
   CERTSTREAM_BASE_URL          Certstream WebSocket base URL. Default: ws://127.0.0.1:8080
   CERTSTREAM_WS_URL            Explicit WebSocket URL override.
   SAMPLE_MINUTES               Duration of each capture window. Default: 15
@@ -64,7 +64,7 @@ Environment:
   SAMPLE_NOTES                 Optional text stored in the manifest.
 
 Output:
-  data/raw/YYYY-MM-DD/YYYY-MM-DDTHH-mmZ_15m_lite.jsonl.gz
+  data/raw/YYYY-MM-DD/YYYY-MM-DDTHH-mmZ_15m_domains-only.jsonl.gz
   data/manifest.csv
 `);
 }
@@ -187,7 +187,7 @@ function isCertificateEvent(event) {
   return Boolean(event?.data?.leaf_cert && typeof event.data.leaf_cert === "object");
 }
 
-const streamMode = normalizeMode(process.env.CERTSTREAM_MODE || "lite");
+const streamMode = normalizeMode(process.env.CERTSTREAM_MODE || "domains-only");
 const sampleSeconds = process.env.SAMPLE_SECONDS
   ? positiveNumber("SAMPLE_SECONDS", 0)
   : positiveNumber("SAMPLE_MINUTES", 15) * 60;

@@ -15,8 +15,9 @@ def main() -> None:
 
     events, domains = load_frames(input_file, include_domains=True)
     domains = domains if domains is not None else pd.DataFrame()
-    raw_certificate_events = len(events)
-    unique_certificates = events["cert_key"].nunique()
+    certificate_events = events[events["event_kind"] == "certificate"]
+    raw_certificate_events = len(certificate_events)
+    unique_certificates = certificate_events["cert_key"].nunique()
     domain_occurrences = len(domains)
     unique_fqdns = domains["domain"].nunique()
 

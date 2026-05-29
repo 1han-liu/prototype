@@ -81,10 +81,10 @@ def main() -> None:
 
     minutes = complete_minute_index(events["minute_utc"])
     minute_counts = (
-        events.groupby("minute_utc").size().reindex(minutes, fill_value=0).rename("certificate_events").reset_index()
+        events.groupby("minute_utc").size().reindex(minutes, fill_value=0).rename("stream_messages").reset_index()
     )
     minute_counts = minute_counts.rename(columns={"index": "minute_utc"})
-    minute_counts = trim_sparse_edge_rows(minute_counts, "certificate_events").reset_index(drop=True)
+    minute_counts = trim_sparse_edge_rows(minute_counts, "stream_messages").reset_index(drop=True)
     trimmed_minutes = minute_counts["minute_utc"]
     minute_region = (
         domains.groupby(["minute_utc", "region_bucket"])["domain"]
