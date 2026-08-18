@@ -1,0 +1,2 @@
+selected_windows,scheduled_start_utc,scheduled_end_utc,planned_hours,messages,domains,first_file,last_file
+168,2026-05-29 22:00:00+00:00,2026-06-05 22:00:00+00:00,168.0,663846240,1195555155,data/raw/2026-05-29/2026-05-29T22-00Z_60m_domains-only.jsonl.gz,data/raw/2026-06-05/2026-06-05T21-00Z_60m_domains-only.jsonl.gz

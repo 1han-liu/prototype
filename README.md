@@ -240,6 +240,45 @@ TIME_FIELD=received_at DISPLAY_TIME_ZONE=Europe/Berlin .venv/bin/python analysis
 TIME_FIELD=received_at .venv/bin/python analysis/04_tld_region_business_hours.py
 ```
 
+For the full one-week domain-only collection, use the weekly correlation script. It reads `data/manifest.csv`, selects completed `domains-only` windows, builds a resumable per-file cache under `.cache/analysis/weekly_region_minutes/`, then writes the final CSV/SVG outputs to `figures/`.
+
+```bash
+.venv/bin/python analysis/06_weekly_business_hour_correlation.py
+```
+
+The default manifest filter expects the collection note `one-week domains-only collection`. Override it if needed:
+
+```bash
+NOTES_FILTER= .venv/bin/python analysis/06_weekly_business_hour_correlation.py
+```
+
+Useful smoke-test mode:
+
+```bash
+MAX_FILES=1 MAX_LINES=10000 FIGURES_DIR=figures/test/weekly .venv/bin/python analysis/06_weekly_business_hour_correlation.py
+```
+
+To generate only the grouped bar chart comparing weekday business, weekday off-hours, and weekend rates, run:
+
+```bash
+.venv/bin/python analysis/07_business_period_grouped_bar.py
+```
+
+To generate the weekly TLD count/share table, run:
+
+```bash
+.venv/bin/python analysis/08_weekly_tld_counts.py
+```
+
+The final paper tables, figure, and sensitivity checks use the following order:
+
+```bash
+.venv/bin/python analysis/10_weekly_tld_region_mapping.py
+.venv/bin/python analysis/11_weekly_tld_hourly_share.py
+.venv/bin/python analysis/12_regional_tld_business_hour_lift.py
+.venv/bin/python analysis/15_weekly_sensitivity_analysis.py
+```
+
 By default, the time-series scripts remove sparse first/last edge minutes when they are likely partial collection-window artifacts. Set `TRIM_EDGE_MINUTES=0` to keep them.
 
 Analysis scripts:
@@ -268,6 +307,59 @@ analysis/04_tld_region_business_hours.py
 analysis/05_dedup_summary.py
   figures/dedup_summary.svg
   figures/dedup_summary.csv
+
+analysis/06_weekly_business_hour_correlation.py
+  figures/weekly_domain_only_manifest_summary.csv
+  figures/weekly_region_minute_rates.csv
+  figures/weekly_region_minute_derived_hourly_rates.csv
+  figures/weekly_business_hour_rates.csv
+  figures/weekly_business_window_correlations.csv
+  figures/weekly_region_rate_correlation_pearson.csv
+  figures/weekly_region_rate_correlation_spearman.csv
+  figures/weekly_local_hour_profiles.csv
+  figures/weekly_local_hour_profile_correlations.csv
+  figures/weekly_region_minute_derived_hourly_rates.svg
+  figures/weekly_cctld_region_hourly_rates.svg
+  figures/weekly_region_rate_correlation_pearson.svg
+  figures/weekly_business_hour_lift.svg
+
+analysis/07_business_period_grouped_bar.py
+  figures/weekly_business_period_rates.csv
+  figures/weekly_business_period_rates_grouped.svg
+
+analysis/08_weekly_tld_counts.py
+  figures/weekly_tld_counts.csv
+
+analysis/10_weekly_tld_region_mapping.py
+  figures/weekly_tld_region_mapping.csv
+
+analysis/11_weekly_tld_hourly_share.py
+  figures/weekly_tld_hourly_counts.csv
+  figures/weekly_region_hourly_unique_fqdn_counts.csv
+  figures/weekly_region_hourly_summary.csv
+  figures/weekly_top_tld_hourly_share.csv
+  figures/weekly_top_tld_selection.csv
+  figures/weekly_top_tld_hourly_share.svg
+
+analysis/12_regional_tld_business_hour_lift.py
+  figures/regional_tld_business_hour_count_lift.csv
+  figures/regional_tld_business_hour_count_lift.svg
+
+analysis/15_weekly_sensitivity_analysis.py
+  figures/sensitivity/wildcard_hourly_tld_counts.csv
+  figures/sensitivity/wildcard_region_summary.csv
+  figures/sensitivity/wildcard_top_tlds.csv
+  figures/sensitivity/wildcard_business_hour_lift.csv
+  figures/sensitivity/tld_mapping_region_summary.csv
+  figures/sensitivity/tld_mapping_top_tlds.csv
+  figures/sensitivity/tld_mapping_business_hour_lift.csv
 ```
 
-The regional/business-hour script uses ccTLDs as a regional proxy. European ccTLDs such as `.de`, `.fr`, `.nl`, `.eu`, and `.uk` are mapped to `Europe/Berlin`; North American ccTLDs such as `.us`, `.ca`, and `.mx` are evaluated under both `America/New_York` and `America/Los_Angeles`. Generic TLDs such as `.com`, `.net`, and `.org` are kept as global/unknown rather than assigned to the United States.
+`analysis/11_weekly_tld_hourly_share.py` is the canonical source for hourly
+unique-FQDN counts. It normalizes each domain and deduplicates it across the
+entire one-hour reception window before aggregating by TLD or mapped region.
+The hourly output of analysis 06 is explicitly minute-derived: it averages
+per-minute unique counts and scales the result to an hourly rate, so it must
+not be interpreted as an hourly deduplicated FQDN count.
+
+The weekly regional scripts use TLDs as a regional proxy. Global gTLDs and the generic ccTLDs listed by Google Search Central are assigned to the Global group. Other ccTLDs are grouped into Europe, Americas, Asia, Africa, Oceania, and Antarctica. The generated mapping records the source type, final class, continent, rule, and note for every observed TLD. These buckets describe TLD-associated activity, not direct user, requester, or server geolocation.

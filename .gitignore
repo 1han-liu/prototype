@@ -8,6 +8,7 @@ plan.md
 __pycache__/
 *.pyc
 figures/test/
+figures/test-weekly/
 figures/pytest/
 figures/pdtest/
 .venv/

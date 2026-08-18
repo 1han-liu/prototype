@@ -1,0 +1,8 @@
+region_bucket,reference_time_zone,observed_hour_buckets,weekday_hour_buckets,weekend_hour_buckets,overall_mean_unique_fqdns_per_hour,min_unique_fqdns_per_hour,max_unique_fqdns_per_hour,weekday_peak_hour,weekday_peak_mean_unique_fqdns_per_hour,weekday_mean_unique_fqdns_per_hour,weekend_mean_unique_fqdns_per_hour
+Global,Europe/Berlin,168,120,48,1728484,1568224,2037315,06:00,1854429,1740188,1699222
+Europe,Europe/Berlin,168,120,48,261403,229130,309383,11:00,277606,259391,266434
+Americas,Europe/Berlin,168,120,48,62895,49721,75992,05:00,67281,62473,63951
+Asia,Europe/Berlin,168,120,48,80937,71051,99813,11:00,87517,80941,80928
+Africa,Europe/Berlin,168,120,48,19529,13581,41922,23:00,21908,18041,23250
+Oceania,Europe/Berlin,168,120,48,28399,23579,33215,06:00,30312,28096,29156
+Antarctica,Europe/Berlin,168,120,48,89,49,226,13:00,108,89,90

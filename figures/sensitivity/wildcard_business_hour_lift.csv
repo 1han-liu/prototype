@@ -1,0 +1,11 @@
+scenario,tld,tld_label,mapped_tld_class,mapped_continent,timezone,business_window,business_buckets,weekday_off_hours_buckets,weekend_buckets,business_mean_share_pct,weekday_off_hours_mean_share_pct,weekend_mean_share_pct,business_lift_vs_weekday_off_hours,business_mean_unique_fqdn_count,weekday_off_hours_mean_unique_fqdn_count,count_lift_vs_weekday_off_hours,count_lift_ci95_low,count_lift_ci95_high,permutation_p_value,bootstrap_samples,permutation_shifts,holm_adjusted_p_value
+strip_wildcard_prefix,uk,.uk,ccTLD,Europe,Europe/London,Mon-Fri 08:00-18:00 local,50,70,48,1.4272,1.345,1.3838,1.0612,31065.26,29552.729,1.0512,1.0229,1.0742,0.2083,10000,24,1.0
+strip_wildcard_prefix,cn,.cn,ccTLD,Asia,Asia/Shanghai,Mon-Fri 08:00-18:00 local,50,70,48,1.1141,1.1257,1.1112,0.9898,25142.86,24127.971,1.0421,0.9692,1.141,0.6667,10000,24,1.0
+strip_wildcard_prefix,br,.br,ccTLD,Americas,America/Sao_Paulo,Mon-Fri 08:00-18:00 local,50,70,48,1.2242,1.1493,1.1883,1.0652,26362.58,25590.286,1.0302,1.0064,1.0656,0.7917,10000,24,1.0
+strip_wildcard_prefix,ru,.ru,ccTLD,Europe,Europe/Moscow,Mon-Fri 08:00-18:00 local,50,70,48,1.0249,1.026,1.2435,0.9989,22529.8,22317.129,1.0095,0.9317,1.0928,0.9583,10000,24,1.0
+strip_wildcard_prefix,de,.de,ccTLD,Europe,Europe/Berlin,Mon-Fri 08:00-18:00 local,50,70,48,2.2419,2.2426,2.2639,0.9997,48962.66,49084.7,0.9975,0.9555,1.0404,1.0,10000,24,1.0
+retain_wildcard_distinct,uk,.uk,ccTLD,Europe,Europe/London,Mon-Fri 08:00-18:00 local,50,70,48,1.4317,1.365,1.3851,1.0488,37616.7,36339.743,1.0351,1.0011,1.0658,0.2917,10000,24,1.0
+retain_wildcard_distinct,cn,.cn,ccTLD,Asia,Asia/Shanghai,Mon-Fri 08:00-18:00 local,50,70,48,1.1784,1.1939,1.1791,0.987,31982.64,30905.271,1.0349,0.9537,1.1447,0.6667,10000,24,1.0
+retain_wildcard_distinct,br,.br,ccTLD,Americas,America/Sao_Paulo,Mon-Fri 08:00-18:00 local,50,70,48,1.1983,1.1511,1.1791,1.041,31358.42,30943.343,1.0134,0.9939,1.0404,0.9167,10000,24,1.0
+retain_wildcard_distinct,ru,.ru,ccTLD,Europe,Europe/Moscow,Mon-Fri 08:00-18:00 local,50,70,48,0.9208,0.9201,1.1127,1.0007,24351.68,24165.457,1.0077,0.9352,1.0839,0.9583,10000,24,1.0
+retain_wildcard_distinct,de,.de,ccTLD,Europe,Europe/Berlin,Mon-Fri 08:00-18:00 local,50,70,48,2.119,2.1437,2.144,0.9885,55748.96,56832.571,0.9809,0.9339,1.029,0.5417,10000,24,1.0

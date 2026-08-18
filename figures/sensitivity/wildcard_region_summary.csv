@@ -1,0 +1,15 @@
+scenario,region_bucket,reference_time_zone,observed_hour_buckets,weekday_hour_buckets,weekend_hour_buckets,overall_mean_unique_fqdns_per_hour,min_unique_fqdns_per_hour,max_unique_fqdns_per_hour,weekday_peak_hour,weekday_peak_mean_unique_fqdns_per_hour,weekday_mean_unique_fqdns_per_hour,weekend_mean_unique_fqdns_per_hour,baseline_mean_unique_fqdns_per_hour,mean_change_vs_baseline_pct
+strip_wildcard_prefix,Global,Europe/Berlin,168,120,48,1728484,1568224,2037315,06:00,1854429,1740188,1699222,1728484,0.0
+strip_wildcard_prefix,Europe,Europe/Berlin,168,120,48,261403,229130,309383,11:00,277606,259391,266434,261403,0.0
+strip_wildcard_prefix,Americas,Europe/Berlin,168,120,48,62895,49721,75992,05:00,67281,62473,63951,62895,0.0
+strip_wildcard_prefix,Asia,Europe/Berlin,168,120,48,80937,71051,99813,11:00,87517,80941,80928,80937,0.0
+strip_wildcard_prefix,Africa,Europe/Berlin,168,120,48,19529,13581,41922,23:00,21908,18041,23250,19529,0.0
+strip_wildcard_prefix,Oceania,Europe/Berlin,168,120,48,28399,23579,33215,06:00,30312,28096,29156,28399,0.0
+strip_wildcard_prefix,Antarctica,Europe/Berlin,168,120,48,89,49,226,13:00,108,89,90,89,0.0
+retain_wildcard_distinct,Global,Europe/Berlin,168,120,48,2092079,1832115,2449575,06:00,2241598,2111974,2042342,1728484,21.035
+retain_wildcard_distinct,Europe,Europe/Berlin,168,120,48,301109,269608,351591,11:00,318945,300207,303363,261403,15.19
+retain_wildcard_distinct,Americas,Europe/Berlin,168,120,48,74346,59634,92650,05:00,79684,74214,74676,62895,18.207
+retain_wildcard_distinct,Asia,Europe/Berlin,168,120,48,98786,84334,126389,11:00,106862,99428,97181,80937,22.053
+retain_wildcard_distinct,Africa,Europe/Berlin,168,120,48,22340,16043,45264,23:00,24743,20926,25876,19529,14.394
+retain_wildcard_distinct,Oceania,Europe/Berlin,168,120,48,38904,32804,45901,06:00,41672,38975,38726,28399,36.991
+retain_wildcard_distinct,Antarctica,Europe/Berlin,168,120,48,108,58,246,13:00,129,108,110,89,21.348

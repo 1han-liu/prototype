@@ -1,0 +1,11 @@
+analysis_group,tld,tld_label,mapped_tld_class,mapped_continent,selected_unique_fqdn_sum,selected_domain_occurrences,weekly_unique_fqdn_share_pct
+Global/non-regional TLD,com,.com,global_gTLD,Global,162099297,500567706,44.2252
+Global/non-regional TLD,dev,.dev,global_gTLD,Global,33131428,152063443,9.0392
+Global/non-regional TLD,net,.net,global_gTLD,Global,20502230,57936848,5.5936
+Global/non-regional TLD,io,.io,globalized_ccTLD,Global,11439111,35142769,3.1209
+Global/non-regional TLD,org,.org,global_gTLD,Global,10344277,31191520,2.8222
+ccTLD/geographic TLD,de,.de,ccTLD,Europe,8234412,26414603,2.2466
+ccTLD/geographic TLD,uk,.uk,ccTLD,Europe,5054822,15637067,1.3791
+ccTLD/geographic TLD,br,.br,ccTLD,Americas,4329457,13960629,1.1812
+ccTLD/geographic TLD,cn,.cn,ccTLD,Asia,4100467,14798397,1.1187
+ccTLD/geographic TLD,ru,.ru,ccTLD,Europe,3981223,11546397,1.0862
